@@ -1,0 +1,7 @@
+*.o
+*.swp
+*~
+*# 
+geometry
+*.out
+*.exe

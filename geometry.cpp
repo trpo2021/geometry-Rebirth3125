@@ -42,7 +42,7 @@ int main()
             return 0;
         }
 
-        while (isdigit(*point) == 0) // Первое число
+        while (isdigit(*point) == 0) // First number
         {
             if ((*point == ' ') || (*point == '('))
                 point++;
@@ -58,7 +58,7 @@ int main()
             printf("x=%f\n", x);
         }
 
-        while (isdigit(*point) == 0) // Второе число
+        while (isdigit(*point) == 0) // Second number
         {
             if (*point == ' ')
                 point++;
@@ -92,7 +92,7 @@ int main()
         if (flag == 0)
             printf("ERROR ,");
 
-        while (isdigit(*point) == 0) // Третье число
+        while (isdigit(*point) == 0) // Third number
         {
             if ((*point == ' ') || (*point == ','))
                 point++;

@@ -1,6 +1,7 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
-float const P = 3.1415;
+#include <string.h>
 int main()
 {
     float x = 0, y = 0, r = 0, per = 0, S = 0;

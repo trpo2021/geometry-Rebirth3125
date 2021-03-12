@@ -2,7 +2,7 @@
 *.swp
 *~
 *# 
-geometry
+
 *.out
 *.exe
 .vs/

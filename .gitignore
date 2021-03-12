@@ -5,3 +5,4 @@
 geometry
 *.out
 *.exe
+.vs/

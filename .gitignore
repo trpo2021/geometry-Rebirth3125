@@ -1,11 +1,7 @@
-
-*.swp
 *~
-*# 
-
+*#
+*.lib
 *.out
 *.exe
 .vs/
-.vs/geometry-Rebirth3125/v16/.suo
-*.db
-*.sqlite
+*.o

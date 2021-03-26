@@ -1,6 +1,6 @@
 all: main
 
-main: main.o check.o calculate.o geometry.o
+main: main.o check.o calculate.o
 		g++ main.o check.o calculate.o -o geometry.exe
 
 main.o: main.cpp
@@ -11,9 +11,6 @@ check.o: check.cpp
 
 calculate.o: calculate.cpp
 	g++ -o calculate.cpp
-
-geometry.o: geometry.cpp
-	g++ -Wall -Werror -o geometry.cpp
 
 clean:
 	rm -rf *.o main

@@ -1,10 +1,10 @@
 all: main
 
 main: main.o check.o calculate.o
-		g++ main.o check.o calculate.o -o geometry.exe
+	g++ main.o check.o calculate.o -o geometry.exe
 
 main.o: main.cpp
-			g++ -c main.cpp
+	g++ -c main.cpp
 
 check.o: check.cpp
 	g++ -o check.cpp

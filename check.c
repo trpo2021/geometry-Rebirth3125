@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "check.h"
 
 void check(char* point = str, char* start_point, char* last_point = str, int flag)

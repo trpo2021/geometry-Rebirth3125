@@ -1,6 +1,8 @@
-#include <cmath>
-#include <string>
-#include <vector>
+#include <ctype.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "check.h"
 #include "calculate.h"
@@ -18,5 +20,5 @@ int main()
   void check(point = str, start_point, last_point = str,flag);
   double Perimetr(figureName, number);
   double Square(figureName, number);
-  
+
 }

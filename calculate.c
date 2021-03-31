@@ -1,32 +1,48 @@
-#include "calculate.h"
-#include <math.h>
-#include <stdbool.h>
+#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include "calculate.h"
+#include <list>
 
-double sqr(double x)
+const double pi=3.141592653589793;
+
+double Perimetr(char figureName, list<double> number)
 {
-    return pow(x, 2);
+  double P=0;
+  if (figureName =="circle")
+  {
+    P=2*pi*number[2];
+  }
+  else
+  {
+    for(int i=0; i<(int)number.size()-2; i+=2)
+    P+=sqrt(pow(number[i+1]-number[i],2)+pow(number[i+2]-number[i+3],2));
+  }
 }
 
-double length(Point first, Point second)
-{
-    double l = sqrt(sqr(second.x - first.x) + sqr(second.y - first.y));
-    return l;
-}
+return P;
 
-double circlePeri(Circle circle)
-{
-    return 2 * M_PI * circle.radius;
-}
 
-double circleArea(Circle circle)
+double Square(char figureName, list<double> number)
 {
-    return sqr(circle.radius) * M_PI;
-}
-
-bool isCircle(Circle circle)
-{
-    if (circle.radius <= 0)
-        return false;
-    return true;
-}
+  double S=0;
+  if (figureName =="circle")
+  {
+    S=pi*pow(number[2],2)
+  }
+  else
+  {
+    for (int i=0; i<(int)number.size()-2;i+=2)
+    {
+      S+=number[i]*number[i+2];
+      }
+    for (int i=0; i<(int)number.size()-2;i+=2)
+    {
+      S+=number[i]*number[i+3];
+    }
+    S=abs(S)/2;
+    }
+    return S;
+  }

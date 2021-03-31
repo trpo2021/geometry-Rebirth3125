@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-using namespace std;
 
-double Perimetr(string figureName, vector<double> number);
-double Square(string figureName, vector<double> number);
+
+double Perimetr(char figureName, vector<double> number);
+double Square(char figureName, vector<double> number);

@@ -1,26 +1,8 @@
-#include <math.h>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#ifndef calculate_h
-#define calculate_h
+#include <list>
 
-typedef struct Point{
-	double x;
-	double y;
-}Point;
-
-typedef struct Circle{
-	Point center;
-	double radius;
-}Circle;
-
-double length(Point first, Point second);
-
-double circlePeri(Circle circle);
-
-double circleArea(Circle circle);
-
-double sqr(double x);
-
-bool isCircle(Circle circle);
-
-#endif
+double Perimetr(char figureName, list<double> number);
+double Square(char figureName, list<double> number);

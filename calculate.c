@@ -5,11 +5,11 @@
 #include <stdbool.h>
 #include "calculate.h"
 
-using namespace std;
+
 
 const double pi=3.141592653589793
 
-double Perimetr(string figureName, vector<double> number)
+double Perimetr(char figureName, vector<double> number)
 {
   double P=0;
   if (figureName =="circle")
@@ -25,7 +25,7 @@ double Perimetr(string figureName, vector<double> number)
 return P;
 }
 
-double Square(string figureName, vector<double> number)
+double Square(char figureName, vector<double> number)
 {
   double S=0;
   if (figureName =="circle")

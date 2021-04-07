@@ -1,7 +1,9 @@
 *~
 *#
-*.lib
 *.out
 *.exe
 .vs/
 *.o
+*.d
+*.a
+geometry

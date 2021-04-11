@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "libgeometry/check.h
+#include "libgeometry/check.h"
 
 #define N 50
 

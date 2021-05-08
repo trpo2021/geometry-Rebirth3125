@@ -1,44 +1,25 @@
-APP_NAME = geometry
-LIB_NAME = libgeometry
+main: clear check.a
+	gcc -Wall -Wextra -Werror check.a -o geometry.exe
 
-CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS = -I src -MP -MMD
-LDFLAGS =
-LDLIBS =
+check.o:
+	gcc -I src -c src/libgeometry/check.c
 
-BIN_DIR = bin
-OBJ_DIR = obj
-SRC_DIR = src
+main.o:
+	gcc -I src -c src/geometry/main.c
 
-APP_PATH = $(BIN_DIR)/$(APP_NAME)
-LIB_PATH = $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/$(LIB_NAME).a
+check.a: check.o main.o
+	ar rcs check.a *.o
 
-SRC_EXT = c
+test: check.o tmain.o test.o
+	gcc check.o tmain.o test.o -o test
 
-APP_SOURCES = $(shell find $(SRC_DIR)/$(APP_NAME) -name '*.$(SRC_EXT)')
-APP_OBJECTS = $(APP_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
+tmain.o:
+	gcc -I src -c thirdparty/tmain.c
 
-LIB_SOURCES = $(shell find $(SRC_DIR)/$(LIB_NAME) -name '*.$(SRC_EXT)')
-LIB_OBJECTS = $(LIB_SOURCES:$(SRC_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(SRC_DIR)/%.o)
+test.o:
+	gcc -I src -c thirdparty/test.c
 
-DEPS = $(APP_OBJECTS:.o=.d) $(LIB_OBJECTS:.o=.d)
-
-.PHONY: all
-all: $(APP_PATH)
-
--include $(DEPS)
-
-$(APP_PATH): $(APP_OBJECTS) $(LIB_PATH)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) $(LDLIBS)
-
-$(LIB_PATH): $(LIB_OBJECTS)
-	ar rcs $@ $^
-
-$(OBJ_DIR)/%.o: %.c
-	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@
-
-.PHONY: clean
-clean:
-	$(RM) $(APP_PATH) $(LIB_PATH)
-	find $(OBJ_DIR) -name '*.o' -exec $(RM) '{}' \;
-	find $(OBJ_DIR) -name '*.d' -exec $(RM) '{}' \;
+clear:
+	rm -rf *.o
+	rm -rf *.a
+	rm -rf *.exe

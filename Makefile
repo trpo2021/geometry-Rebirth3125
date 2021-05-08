@@ -1,5 +1,5 @@
 main: clear check.a
-	gcc -Wall -Wextra -Werror check.a -o geometry.exe
+	gcc -Wall -Wextra -Werror check.a -lm -o geometry.exe
 
 check.o:
 	gcc -I src -c src/libgeometry/check.c
@@ -11,7 +11,7 @@ check.a: check.o main.o
 	ar rcs check.a *.o
 
 test: check.o tmain.o test.o
-	gcc check.o tmain.o test.o -o test
+	gcc check.o tmain.o test.o -lm -o test
 
 tmain.o:
 	gcc -I src -c thirdparty/tmain.c

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "ctest.h"
 #include "libgeometry/check.h"
-#include "stdbool.h"
+#include <stdbool.h>
 
 CTEST(input, word_chek)
 {

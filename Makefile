@@ -1,25 +1,67 @@
-main: clear check.a
-	gcc -Wall -Wextra -Werror check.a -lm -o geometry.exe
+APP_NAME = geometry
+APP_NAME_TEST = thirdparty
+LIB_NAME = libgeometry
 
-check.o:
-	gcc -I src -c src/libgeometry/check.c
+CFLAGS = -Wall -Wextra -Werror
+CPPFLAGS = -I src -MP -MMD
+CPPFLAGS_TEST = -I thirdparty -I src -MP -MMD
+LDFLAGS =
+LDLIBS = -lm
+CC=gcc
 
-main.o:
-	gcc -I src -c src/geometry/main.c
+BIN_DIR = bin
+OBJ_DIR = obj
+SRC_DIR = src
+TEST_DIR = thirdparty
 
-check.a: check.o main.o
-	ar rcs check.a *.o
+APP_PATH = $(BIN_DIR)/$(APP_NAME)
+LIB_PATH = $(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/$(LIB_NAME).a
+APP_PATH_TEST = $(BIN_DIR)/$(APP_NAME_TEST)
 
-test: check.o tmain.o test.o
-	gcc check.o tmain.o test.o -lm -o test
+SRC_EXT = c
 
-tmain.o:
-	gcc -I src -c thirdparty/tmain.c
+APP_SOURCES = $(shell find $(SRC_DIR)/$(APP_NAME) -name '*.$(SRC_EXT)')
+APP_OBJECTS = $(APP_SOURCES:%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
 
-test.o:
-	gcc -I src -c thirdparty/test.c
+LIB_SOURCES = $(shell find $(SRC_DIR)/$(LIB_NAME) -name '*.$(SRC_EXT)')
+LIB_OBJECTS = $(LIB_SOURCES:%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
 
-clear:
-	rm -rf *.o
-	rm -rf *.a
-	rm -rf *.exe
+APP_SOURCES_TEST = $(shell find $(TEST_DIR) -name '*.$(SRC_EXT)')
+APP_OBJECTS_TEST = $(APP_SOURCES_TEST:$(TEST_DIR)/%.$(SRC_EXT)=$(OBJ_DIR)/$(TEST_DIR)/%.o)
+
+DEPS = $(APP_OBJECTS:.o=.d) $(LIB_OBJECTS:.o=.d)
+DEPS_TEST = $(APP_OBJECTS_TEST:.o=.d) $(LIB_OBJECTS:.o=.d)
+
+.PHONY: all
+all: $(APP_PATH)
+
+-include $(DEPS)
+
+$(APP_PATH): $(APP_OBJECTS) $(LIB_PATH)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+
+$(LIB_PATH): $(LIB_OBJECTS)
+	ar rcs $@ $^
+
+$(OBJ_DIR)/$(SRC_DIR)/$(APP_NAME)/%.o: $(SRC_DIR)/$(APP_NAME)/%.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@ $(LDLIBS)
+
+$(OBJ_DIR)/$(SRC_DIR)/$(LIB_NAME)/%.o: $(SRC_DIR)/$(LIB_NAME)/%.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS) $< -o $@ $(LDLIBS)
+
+.PHONY: clean
+clean:
+	$(RM) $(APP_PATH) $(LIB_PATH) $(APP_PATH_TEST)
+	find $(OBJ_DIR) -name '*.o' -exec $(RM) '{}' \;
+	find $(OBJ_DIR) -name '*.d' -exec $(RM) '{}' \;
+
+.PHONY: test
+test: $(APP_PATH_TEST)
+
+-include $(DEPS_TEST)
+
+$(APP_PATH_TEST): $(APP_OBJECTS_TEST) $(LIB_PATH)
+	$(CC) $(CFLAGS) $(CPPFLAGS_TEST) $^ -o $@ $(LDFLAGS) $(LDLIBS)
+
+$(OBJ_DIR)/$(TEST_DIR)/%.o: $(TEST_DIR)/%.c
+	$(CC) -c $(CFLAGS) $(CPPFLAGS_TEST) $< -o $@ $(LDLIBS)

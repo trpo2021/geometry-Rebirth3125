@@ -32,5 +32,5 @@ CTEST(input, word_chek5)
 {
     char* str = "Circle( 2,3";
     bool result = checking_parameters_figure(str);
-    ASSERT_FALSE(result);
+    ASSERT_TRUE(result);
 }

@@ -16,4 +16,4 @@ jobs:
         run: make
 
       - name: test application
-        run: make test && ./bin/thirdparty/thirdparty
+        run: make test && ./bin/thirdparty
